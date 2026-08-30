@@ -76,16 +76,16 @@
     color: #b3a9ae;
     border: 1px solid #e5dfe1;
   }
-.avatar-name {
-  font-size: 14px;
-  font-weight: 700;
-  text-align: left;
-  line-height: 1.3;
-  width: 104px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+  .avatar-name {
+    font-size: 14px;
+    font-weight: 700;
+    text-align: left;
+    line-height: 1.3;
+    width: 104px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .buttons-row {
     flex: 1;
     display: flex;
@@ -94,25 +94,25 @@
     align-items: center;
     gap: 10px;
   }
-.link-btn {
-  flex: 0 0 auto;
-  width: 118px;
-  min-height: 46px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  line-height: 1.3;
-  font-size: 14px;
-  padding: 6px 4px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 700;
-  white-space: nowrap;
-  border: 1px solid var(--border);
-  color: var(--text);
-  background: #fafafa;
-}
+  .link-btn {
+    flex: 0 0 auto;
+    width: 118px;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.3;
+    font-size: 14px;
+    padding: 6px 4px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    white-space: nowrap;
+    border: 1px solid var(--border);
+    color: var(--text);
+    background: #fafafa;
+  }
   .link-btn.insta { background: #fdeef3; color: var(--accent-dark); border-color: #fbd9e4; }
   .link-btn.mall { background: var(--accent); color: white; border: none; }
   .link-btn.smart { background: #eaf6f3; color: #2f8f76; border-color: #cdeee5; }
@@ -133,45 +133,33 @@
     color: var(--muted);
   }
   .empty { text-align: center; color: var(--muted); font-size: 13px; padding: 20px 0; }
-.ad-slot { margin-bottom: 10px; }
-.ad-slot { margin-bottom: 10px; }
-.ad-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 14px 16px;
-  margin-bottom: 4px;
-  box-shadow: var(--shadow);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.ad-disclosure {
-  text-align: center;
-  font-size: 10.5px;
-  color: #c2b6bc;
-  margin-top: 4px;
-}
-.ad-slot { margin-bottom: 10px; }
-.ad-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 10px;
-  margin-bottom: 4px;
-  box-shadow: var(--shadow);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.ad-disclosure {
-  text-align: center;
-  font-size: 10.5px;
-  color: #c2b6bc;
-  margin-top: 4px;
-}
+
+  .ad-slot { margin-bottom: 10px; }
+  .ad-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 10px;
+    margin-bottom: 4px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .ad-disclosure {
+    text-align: center;
+    font-size: 10.5px;
+    color: #c2b6bc;
+    margin-top: 4px;
+  }
+
+  .notice {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 10px 0 20px;
+  }
 
   .fab {
     position: fixed;
@@ -270,21 +258,22 @@
   .btn-save { background: var(--accent); color: white; }
   .btn-delete { background: #fff0f0; color: #d9534f; }
   .loading { text-align: center; padding: 40px 0; color: var(--muted); }
-	@media (max-width: 480px) {
-  .avatar { width: 44px; height: 44px; font-size: 16px; }
-  .avatar-name { width: 56px; font-size: 12px; }
-  .avatar-col { gap: 6px; margin-left: 0; }
-  .card-top-row { gap: 8px; }
-  .buttons-row { flex-wrap: nowrap; gap: 6px; }
-  .link-btn {
-    width: auto;
-    flex: 1 1 0;
-    min-width: 0;
-    padding: 6px 2px;
-    font-size: 11px;
-    white-space: normal;
+
+  @media (max-width: 480px) {
+    .avatar { width: 44px; height: 44px; font-size: 16px; }
+    .avatar-name { width: 56px; font-size: 12px; }
+    .avatar-col { gap: 6px; margin-left: 0; }
+    .card-top-row { gap: 8px; }
+    .buttons-row { flex-wrap: nowrap; gap: 6px; }
+    .link-btn {
+      width: auto;
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 6px 2px;
+      font-size: 11px;
+      white-space: normal;
+    }
   }
-}
 </style>
 </head>
 <body>
@@ -321,7 +310,7 @@
 
     <div class="field">
       <label>마켓 이름 (최대 7자)</label>
-<input type="text" id="fName" maxlength="7" placeholder="예: OO슬라임" oninput="updatePlaceholderInitial()">
+      <input type="text" id="fName" maxlength="7" placeholder="예: OO슬라임" oninput="updatePlaceholderInitial()">
     </div>
     <div class="field">
       <label>인스타그램 프로필 링크</label>
@@ -394,9 +383,17 @@
 // ====== 여기에 JSONBin.io에서 발급받은 값을 붙여넣으세요 ======
 const JSONBIN_BIN_ID = "6a92f4f3da38895dfe2047e7";
 const JSONBIN_API_KEY = "$2a$10$HMHkLVpmgXmYc7nzVDW9mupDg0MIduiz50RDQKy.MJdoAXGchiIa2";
-	const COUPANG_AD_HTML =
+// ============================================================
+
+// ====== 쿠팡 파트너스 광고 코드 (최대 3개, 마켓 7개마다 순서대로 반복) ======
+const COUPANG_ADS = [
   '<script src="https://ads-partners.coupang.com/g.js"></' + 'script>' +
-  '<script>new PartnersCoupang.G({"id":1023965,"template":"carousel","trackingCode":"AF2504602","subId":"waxssslimemarkethub","width":"300","height":"100","tsource":""});</' + 'script>';
+  '<script>new PartnersCoupang.G({"id":1023965,"template":"carousel","trackingCode":"AF2504602","subId":"waxssslimemarkethub","width":"300","height":"100","tsource":""});</' + 'script>',
+  '<script src="https://ads-partners.coupang.com/g.js"></' + 'script>' +
+  '<script>new PartnersCoupang.G({"id":1023978,"template":"carousel","trackingCode":"AF2504602","subId":"waxssslimemarkethub","width":"300","height":"100","tsource":""});</' + 'script>',
+  '<script src="https://ads-partners.coupang.com/g.js"></' + 'script>' +
+  '<script>new PartnersCoupang.G({"id":1023979,"template":"carousel","trackingCode":"AF2504602","subId":"waxssslimemarkethub","width":"300","height":"100","tsource":""});</' + 'script>'
+];
 // ============================================================
 
 async function fetchBinRecord() {
@@ -554,40 +551,18 @@ function render() {
   }
   const sorted = [...markets].sort((a, b) => a.name.localeCompare(b.name, 'ko'));
   let html = '';
+  let adCount = 0;
   sorted.forEach((m, idx) => {
     html += cardHtml(m);
     if ((idx + 1) % 7 === 0) {
-      html += adSlotHtml();
+      html += adSlotHtml(adCount);
+      adCount++;
     }
   });
   allList.innerHTML = html;
-	  allList.innerHTML = html;
   mountCoupangAds();
 }
 
-function adSlotHtml() {
-  return `
-    <div class="ad-slot">
-      <div class="ad-card"></div>
-      <div class="ad-disclosure">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>
-    </div>
-  `;
-}
-
-function mountCoupangAds() {
-  document.querySelectorAll('.ad-card').forEach(el => {
-    if (el.dataset.mounted) return;
-    el.dataset.mounted = '1';
-    const iframe = document.createElement('iframe');
-    iframe.width = '300';
-    iframe.height = '100';
-    iframe.style.border = 'none';
-    iframe.style.display = 'block';
-    iframe.scrolling = 'no';
-    iframe.srcdoc = '<body style="margin:0;">' + COUPANG_AD_HTML + '</body>';
-    el.appendChild(iframe);
-  });
-}
 function cardHtml(m) {
   const avatar = m.photoData
     ? `<img class="avatar" src="${m.photoData}">`
@@ -613,6 +588,35 @@ function cardHtml(m) {
     </div>
   `;
 }
+
+function adSlotHtml(adIndex) {
+  return `
+    <div class="ad-slot">
+      <div class="ad-card" data-ad-index="${adIndex}"></div>
+      <div class="ad-disclosure">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>
+    </div>
+  `;
+}
+
+function mountCoupangAds() {
+  const validAds = COUPANG_ADS.filter(a => a && a.trim());
+  if (validAds.length === 0) return;
+  document.querySelectorAll('.ad-card').forEach(el => {
+    if (el.dataset.mounted) return;
+    el.dataset.mounted = '1';
+    const idx = parseInt(el.dataset.adIndex || '0', 10);
+    const adHtml = validAds[idx % validAds.length];
+    const iframe = document.createElement('iframe');
+    iframe.width = '300';
+    iframe.height = '100';
+    iframe.style.border = 'none';
+    iframe.style.display = 'block';
+    iframe.scrolling = 'no';
+    iframe.srcdoc = '<body style="margin:0;">' + adHtml + '</body>';
+    el.appendChild(iframe);
+  });
+}
+
 // --- photo ---
 function handlePhotoUpload(event) {
   const file = event.target.files[0];
