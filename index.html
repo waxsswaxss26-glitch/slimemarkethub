@@ -777,6 +777,34 @@ document.getElementById('unlockOverlay').addEventListener('click', (e) => { if (
 document.getElementById('setupOverlay').addEventListener('click', (e) => { if (e.target.id === 'setupOverlay') closeSetup(); });
 
 init();
+  async function migrateOldPhotos() {
+  let changed = false;
+  for (const m of markets) {
+    if (m.photoData && m.photoData.startsWith('data:')) {
+      try {
+        const base64 = m.photoData.split(',')[1];
+        const formData = new FormData();
+        formData.append('image', base64);
+        const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        if (data.success) {
+          m.photoData = data.data.url;
+          changed = true;
+        }
+      } catch (e) {
+        // 실패한 사진은 건너뛰고 다음으로
+      }
+    }
+  }
+  if (changed) {
+    await persistMarkets();
+    render();
+    showToast('예전 사진들을 가벼운 링크로 정리했어요!');
+  }
+}
 </script>
 </body>
 </html>
