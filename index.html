@@ -384,6 +384,7 @@
 // ====== JSONBin.io 설정 ======
 const JSONBIN_BIN_ID = "6a92f4f3da38895dfe2047e7";
 const JSONBIN_API_KEY = "$2a$10$HMHkLVpmgXmYc7nzVDW9mupDg0MIduiz50RDQKy.MJdoAXGchiIa2";
+  : const IMGBB_API_KEY = "ffa78db6cb5e6157565a63cbc728ada4";
 // ============================================
 // ============================================================
 
@@ -637,13 +638,13 @@ function mountCoupangAds() {
 }
 
 // --- photo ---
-function handlePhotoUpload(event) {
+async function handlePhotoUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
   const reader = new FileReader();
   reader.onload = (e) => {
     const img = new Image();
-    img.onload = () => {
+    img.onload = async () => {
       const size = 200;
       const canvas = document.createElement('canvas');
       canvas.width = size;
@@ -655,8 +656,25 @@ function handlePhotoUpload(event) {
       const x = (size - w) / 2;
       const y = (size - h) / 2;
       ctx.drawImage(img, x, y, w, h);
-      currentPhotoData = canvas.toDataURL('image/jpeg', 0.75);
-      updatePhotoPreview();
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+
+      showToast('사진 업로드 중...');
+      try {
+        const base64 = dataUrl.split(',')[1];
+        const formData = new FormData();
+        formData.append('image', base64);
+        const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error('upload failed');
+        currentPhotoData = data.data.url;
+        updatePhotoPreview();
+        showToast('사진 업로드 완료!');
+      } catch (err) {
+        showToast('사진 업로드에 실패했어요. 다시 시도해주세요.');
+      }
     };
     img.src = e.target.result;
   };
