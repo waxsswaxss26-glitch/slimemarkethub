@@ -134,15 +134,24 @@
   }
   .empty { text-align: center; color: var(--muted); font-size: 13px; padding: 20px 0; }
 .ad-slot { margin-bottom: 10px; }
-.ad-placeholder {
-  border: 1.5px dashed #d8c7ce;
+.ad-slot { margin-bottom: 10px; }
+.ad-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: 14px;
-  background: #fbf7f8;
-  color: var(--muted);
-  font-size: 12.5px;
+  padding: 14px 16px;
+  margin-bottom: 4px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.ad-disclosure {
   text-align: center;
-  padding: 18px 10px;
-  line-height: 1.6;
+  font-size: 10.5px;
+  color: #c2b6bc;
+  margin-top: 4px;
 }
 .ad-placeholder span { font-size: 11px; }
 .ad-disclosure {
@@ -533,8 +542,10 @@ function render() {
 function adSlotHtml() {
   return `
     <div class="ad-slot">
-      <!-- 쿠팡 파트너스에서 발급받은 <script> 광고 코드를 이 주석 아래에 붙여넣으세요 -->
-      <div class="ad-placeholder">광고 영역<br><span><iframe src="https://coupa.ng/co7PHT" width="120" height="240" frameborder="0" scrolling="no" referrerpolicy="unsafe-url"></iframe></span></div>
+      <div class="ad-card">
+        <!-- 쿠팡 파트너스 코드를 이 주석 아래에 붙여넣으세요 -->
+        <iframe src="https://coupa.ng/co7PZw" width="120" height="240" frameborder="0" scrolling="no" referrerpolicy="unsafe-url"></iframe>
+      </div>
       <div class="ad-disclosure">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>
     </div>
   `;
