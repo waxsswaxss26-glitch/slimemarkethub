@@ -133,7 +133,25 @@
     color: var(--muted);
   }
   .empty { text-align: center; color: var(--muted); font-size: 13px; padding: 20px 0; }
-  .notice {
+.ad-slot { margin-bottom: 10px; }
+.ad-placeholder {
+  border: 1.5px dashed #d8c7ce;
+  border-radius: 14px;
+  background: #fbf7f8;
+  color: var(--muted);
+  font-size: 12.5px;
+  text-align: center;
+  padding: 18px 10px;
+  line-height: 1.6;
+}
+.ad-placeholder span { font-size: 11px; }
+.ad-disclosure {
+  text-align: center;
+  font-size: 10.5px;
+  color: #c2b6bc;
+  margin-top: 4px;
+}  .notice {
+  
     text-align: center;
     color: var(--muted);
     font-size: 12px;
@@ -245,7 +263,7 @@
     <button class="lock-btn" id="lockToggleBtn" onclick="handleLockToggleClick()">🔒 편집</button>
   </div>
   <h1> 🫧왁쓰가 만든 슬라임 마켓 링크 모음🔗 </h1>
-  <div class="subtitle"> 📢마켓 순서는 가나다순입니다 </div>
+  <div class="subtitle"> 📢 마켓 순서는 가나다순입니다 </div>
   <div id="allList"></div>
   <div class="notice" id="setupNotice" style="display:none;">
     아직 편집 비밀번호가 설정되지 않았어요.
@@ -502,31 +520,22 @@ function render() {
     return;
   }
   const sorted = [...markets].sort((a, b) => a.name.localeCompare(b.name, 'ko'));
-  allList.innerHTML = sorted.map(cardHtml).join('');
+  let html = '';
+  sorted.forEach((m, idx) => {
+    html += cardHtml(m);
+    if ((idx + 1) % 7 === 0) {
+      html += adSlotHtml();
+    }
+  });
+  allList.innerHTML = html;
 }
 
-function cardHtml(m) {
-  const avatar = m.photoData
-    ? `<img class="avatar" src="${m.photoData}">`
-    : `<div class="avatar">${escapeHtml(initialOf(m.name))}</div>`;
-  const editBtn = sessionUnlocked
-    ? `<button class="edit-btn" onclick="openModal('${m.id}')" title="수정">✏️</button>`
-    : '';
+function adSlotHtml() {
   return `
-    <div class="card">
-      ${editBtn}
-      <div class="card-top-row">
-        <div class="avatar-col">
-          ${avatar}
-          <div class="avatar-name">${escapeHtml(m.name)}</div>
-        </div>
-        <div class="buttons-row">
-          ${m.instaUrl ? `<a class="link-btn insta" href="${escapeHtml(m.instaUrl)}" target="_blank" rel="noopener">인스타</a>` : ''}
-          ${m.mallUrl ? `<a class="link-btn mall" href="${escapeHtml(m.mallUrl)}" target="_blank" rel="noopener">자사몰</a>` : ''}
-          ${m.smartUrl ? `<a class="link-btn smart" href="${escapeHtml(m.smartUrl)}" target="_blank" rel="noopener">스마트스토어</a>` : ''}
-        </div>
-      </div>
-      ${m.memo ? `<div class="memo">${escapeHtml(m.memo)}</div>` : ''}
+    <div class="ad-slot">
+      <!-- 쿠팡 파트너스에서 발급받은 <script> 광고 코드를 이 주석 아래에 붙여넣으세요 -->
+      <div class="ad-placeholder">광고 영역<br><span>쿠팡 파트너스 배너 코드를 여기에 넣어주세요</span></div>
+      <div class="ad-disclosure">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>
     </div>
   `;
 }
