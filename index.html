@@ -539,7 +539,31 @@ function adSlotHtml() {
     </div>
   `;
 }
-
+function cardHtml(m) {
+  const avatar = m.photoData
+    ? `<img class="avatar" src="${m.photoData}">`
+    : `<div class="avatar">${escapeHtml(initialOf(m.name))}</div>`;
+  const editBtn = sessionUnlocked
+    ? `<button class="edit-btn" onclick="openModal('${m.id}')" title="수정">✏️</button>`
+    : '';
+  return `
+    <div class="card">
+      ${editBtn}
+      <div class="card-top-row">
+        <div class="avatar-col">
+          ${avatar}
+          <div class="avatar-name">${escapeHtml(m.name)}</div>
+        </div>
+        <div class="buttons-row">
+          ${m.instaUrl ? `<a class="link-btn insta" href="${escapeHtml(m.instaUrl)}" target="_blank" rel="noopener">인스타</a>` : ''}
+          ${m.mallUrl ? `<a class="link-btn mall" href="${escapeHtml(m.mallUrl)}" target="_blank" rel="noopener">자사몰</a>` : ''}
+          ${m.smartUrl ? `<a class="link-btn smart" href="${escapeHtml(m.smartUrl)}" target="_blank" rel="noopener">스마트스토어</a>` : ''}
+        </div>
+      </div>
+      ${m.memo ? `<div class="memo">${escapeHtml(m.memo)}</div>` : ''}
+    </div>
+  `;
+}
 // --- photo ---
 function handlePhotoUpload(event) {
   const file = event.target.files[0];
