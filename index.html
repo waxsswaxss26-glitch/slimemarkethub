@@ -408,19 +408,6 @@ async function fetchBinRecord() {
   return data.record || {};
 }
 
-async function saveBinRecord(record) {
-  const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
-    method: 'PUT',
-    headers: { 
-      'Content-Type': 'application/json', 
-      'X-Master-Key': JSONBIN_API_KEY,
-      'X-Bin-Versioning': 'false'  // <-- 이 줄을 반드시 추가해 주세요!
-    },
-    body: JSON.stringify(record)
-  });
-  return res.ok;
-}
-
 let markets = [];
 let editingId = null;
 let currentPhotoData = null;
