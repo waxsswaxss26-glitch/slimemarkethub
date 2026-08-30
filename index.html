@@ -76,13 +76,16 @@
     color: #b3a9ae;
     border: 1px solid #e5dfe1;
   }
-  .avatar-name {
-    font-size: 14px;
-    font-weight: 700;
-    text-align: left;
-    line-height: 1.3;
-    word-break: keep-all;
-  }
+.avatar-name {
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  line-height: 1.3;
+  width: 104px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
   .buttons-row {
     flex: 1;
     display: flex;
@@ -269,8 +272,8 @@
     </div>
 
     <div class="field">
-      <label>마켓 이름</label>
-      <input type="text" id="fName" placeholder="예: OO슬라임 마켓" oninput="updatePlaceholderInitial()">
+      <label>마켓 이름 (최대 7자)</label>
+<input type="text" id="fName" maxlength="7" placeholder="예: OO슬라임" oninput="updatePlaceholderInitial()">
     </div>
     <div class="field">
       <label>인스타그램 프로필 링크</label>
