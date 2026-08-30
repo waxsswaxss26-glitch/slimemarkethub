@@ -153,19 +153,25 @@
   color: #c2b6bc;
   margin-top: 4px;
 }
-.ad-placeholder span { font-size: 11px; }
+.ad-slot { margin-bottom: 10px; }
+.ad-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px;
+  margin-bottom: 4px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
 .ad-disclosure {
   text-align: center;
   font-size: 10.5px;
   color: #c2b6bc;
   margin-top: 4px;
-}  .notice {
-  
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    padding: 10px 0 20px;
-  }
+}
 
   .fab {
     position: fixed;
@@ -373,6 +379,9 @@
 // ====== 여기에 JSONBin.io에서 발급받은 값을 붙여넣으세요 ======
 const JSONBIN_BIN_ID = "6a92f4f3da38895dfe2047e7";
 const JSONBIN_API_KEY = "$2a$10$HMHkLVpmgXmYc7nzVDW9mupDg0MIduiz50RDQKy.MJdoAXGchiIa2";
+	const COUPANG_AD_HTML =
+  '<script src="https://ads-partners.coupang.com/g.js"></' + 'script>' +
+  '<script>new PartnersCoupang.G({"id":1023965,"template":"carousel","trackingCode":"AF2504602","subId":"waxssslimemarkethub","width":"300","height":"100","tsource":""});</' + 'script>';
 // ============================================================
 
 async function fetchBinRecord() {
@@ -537,21 +546,32 @@ function render() {
     }
   });
   allList.innerHTML = html;
+	  allList.innerHTML = html;
+  mountCoupangAds();
 }
 
 function adSlotHtml() {
   return `
     <div class="ad-slot">
-      <div class="ad-card">
-        <!-- 쿠팡 파트너스 코드를 이 주석 아래에 붙여넣으세요 -->
-        <script src="https://ads-partners.coupang.com/g.js"></script>
-<script>
-	new PartnersCoupang.G({"id":1023965,"template":"carousel","trackingCode":"AF2504602","subId":"waxssslimemarkethub","width":"300","height":"100","tsource":""});
-</script>
-      </div>
+      <div class="ad-card"></div>
       <div class="ad-disclosure">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>
     </div>
   `;
+}
+
+function mountCoupangAds() {
+  document.querySelectorAll('.ad-card').forEach(el => {
+    if (el.dataset.mounted) return;
+    el.dataset.mounted = '1';
+    const iframe = document.createElement('iframe');
+    iframe.width = '300';
+    iframe.height = '100';
+    iframe.style.border = 'none';
+    iframe.style.display = 'block';
+    iframe.scrolling = 'no';
+    iframe.srcdoc = '<body style="margin:0;">' + COUPANG_AD_HTML + '</body>';
+    el.appendChild(iframe);
+  });
 }
 function cardHtml(m) {
   const avatar = m.photoData
