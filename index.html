@@ -442,12 +442,25 @@ async function init() {
   render();
 }
 
+async function saveBinRecord(record) {
+  const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_API_KEY },
+    body: JSON.stringify(record)
+  });
+  if (!res.ok) {
+    let msg = '';
+    try { const err = await res.json(); msg = err.message || ''; } catch (e) {}
+    throw new Error(msg || ('save failed: ' + res.status));
+  }
+  return true;
+}
+
 async function persistMarkets() {
   try {
-    const ok = await saveBinRecord({ markets, admin_code: adminCode });
-    if (!ok) showToast('저장에 실패했어요. 다시 시도해주세요.');
+    await saveBinRecord({ markets, admin_code: adminCode });
   } catch (e) {
-    showToast('저장에 실패했어요. 다시 시도해주세요.');
+    showToast('저장 실패: ' + (e.message.includes('1mb') || e.message.includes('size') ? '데이터 용량 초과 (사진을 줄여보세요)' : '다시 시도해주세요'));
   }
 }
 
@@ -629,8 +642,23 @@ function handlePhotoUpload(event) {
   if (!file) return;
   const reader = new FileReader();
   reader.onload = (e) => {
-    currentPhotoData = e.target.result;
-    updatePhotoPreview();
+    const img = new Image();
+    img.onload = () => {
+      const size = 200;
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      const scale = Math.max(size / img.width, size / img.height);
+      const w = img.width * scale;
+      const h = img.height * scale;
+      const x = (size - w) / 2;
+      const y = (size - h) / 2;
+      ctx.drawImage(img, x, y, w, h);
+      currentPhotoData = canvas.toDataURL('image/jpeg', 0.75);
+      updatePhotoPreview();
+    };
+    img.src = e.target.result;
   };
   reader.readAsDataURL(file);
 }
