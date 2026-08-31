@@ -26,14 +26,14 @@
   .wrap { max-width: 640px; margin: 0 auto; }
   .top-row { display: flex; justify-content: flex-end; margin-bottom: -6px; }
   .lock-btn {
-    font-size: 12px;
-    color: var(--muted);
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 5px 12px;
-    cursor: pointer;
-  }
+  font-size: 11px;
+  color: #d8c7ce;
+  background: none;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  opacity: 0.5;
+}
   h1 { font-size: 22px; text-align: center; margin-bottom: 4px; }
   .subtitle { text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 24px; }
 
@@ -278,13 +278,14 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="top-row">
-    <button class="lock-btn" id="lockToggleBtn" onclick="handleLockToggleClick()">🔒 편집</button>
-  </div>
+
   <h1> 🫧왁쓰가 만든 슬라임 마켓 링크 모음🔗 </h1>
   <div class="subtitle"> 📢 마켓 순서는 가나다순입니다 </div>
   <div id="allList"></div>
   <div class="notice" id="setupNotice" style="display:none;">
+      <div style="text-align:center; margin-top: 40px;">
+    <button class="lock-btn" id="lockToggleBtn" onclick="handleLockToggleClick()">🔒</button>
+  </div>
     아직 편집 비밀번호가 설정되지 않았어요.
     <button class="lock-btn" onclick="openSetupModal()" style="margin-left:6px;">비밀번호 설정하기</button>
   </div>
