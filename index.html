@@ -283,11 +283,11 @@
   <div class="subtitle"> 📢 마켓 순서는 가나다순입니다 </div>
   <div id="allList"></div>
   <div class="notice" id="setupNotice" style="display:none;">
-      <div style="text-align:center; margin-top: 40px;">
-    <button class="lock-btn" id="lockToggleBtn" onclick="handleLockToggleClick()">🔒</button>
-  </div>
     아직 편집 비밀번호가 설정되지 않았어요.
     <button class="lock-btn" onclick="openSetupModal()" style="margin-left:6px;">비밀번호 설정하기</button>
+  </div>
+  <div style="text-align:center; margin-top: 40px;">
+    <button class="lock-btn" id="lockToggleBtn" onclick="handleLockToggleClick()">🔒</button>
   </div>
 </div>
 
@@ -429,6 +429,8 @@ async function init() {
   document.getElementById('setupNotice').style.display = adminCode ? 'none' : 'block';
   updateLockUI();
   render();
+  migrateOldPhotos();
+  
 }
 
 async function saveBinRecord(record) {
@@ -490,7 +492,7 @@ function updateLockUI() {
   const fab = document.getElementById('fab');
   const lockBtn = document.getElementById('lockToggleBtn');
   fab.style.display = sessionUnlocked ? 'block' : 'none';
-  lockBtn.textContent = sessionUnlocked ? '🔓 편집중 (잠그기)' : '🔒 편집';
+ lockBtn.textContent = sessionUnlocked ? '🔓' : '🔒';
   render();
 }
 
